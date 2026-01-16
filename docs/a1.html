@@ -74,5 +74,47 @@
         </p>
       </div>
     </div>
+    
+    <div class="code">
+          <br/>
+          <br/>
+          <h2>Code Snippet:</h2>
+        <p>
+          // assign LEDs to their designated pins for later reference<br/>
+          int LED1 = 11;<br/>
+          int LED2 = 10;<br/>
+          int LED3 = 9;<br/>
+          <br/>
+          // the setup function runs once when you press reset or power the board<br/>
+          void setup() {<br/>
+            // initialize digital pin LED1 as an output.<br/>
+            pinMode(LED1, OUTPUT);<br/>
+            // initialize digital pin LED2 as an output.<br/>
+            pinMode(LED2, OUTPUT);<br/>
+            // initialize digital pin LED3 as an output.<br/>
+            pinMode(LED3, OUTPUT);<br/>
+          }<br/>
+          <br/>
+          // the loop function runs over and over again forever<br/>
+          void loop() {<br/>
+            // turn LED1 on (HIGH is the voltage level)<br/>
+            digitalWrite(LED1, HIGH);<br/>
+            // turn LED3 on (HIGH is the voltage level)<br/>
+            digitalWrite(LED3, HIGH); <br/>
+            // turn the LED2 off by making the voltage LOW<br/>
+            digitalWrite(LED2, LOW);<br/>
+            // wait for a second<br/>
+            delay(1000);<br/>
+            // turn the LED1 off by making the voltage LOW<br/>               
+            digitalWrite(LED1, LOW);<br/>
+            // turn the LED3 off by making the voltage LOW<br/>
+            digitalWrite(LED3, LOW);<br/>
+            // turn LED2 on (HIGH is the voltage level)<br/>
+            digitalWrite(LED2, HIGH);<br/>
+            // wait for a second<br/>
+            delay(1000);<br/>         
+          }<br/>
+        </p>
+    </div>
   </body>
 </html>
