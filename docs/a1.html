@@ -9,10 +9,70 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Example Student's Assignment 1!</h1>
+    <h1>Assignment 1: Blink!</h1>
     <div class="header">
-      <img src="red-panda.jpg" />
-      <p>Here is all the documentation for assignment 1!</p>
+      <img src="operation.gif" height="500"/>
+      <p>
+        To the right you will see a gif of my operating circuit.
+        Below, you will find the calculations for the resistors and the 
+        circiut schematic that made this operating circuit possible. You will
+        also find a graph showing the visual representation of the voltage of
+        each LED over time. The final entry on this page will be a code snippet
+        of the code that I used to complete this assignment<br/>
+        <br/>
+        Additional Questions:<br/>
+        1: How many LEDs could you blink independently with your Arduino?
+        How much current would that draw?<br/>
+        You can blink 14 LEDs with our arduino because there is 14 different 
+        pin holes to connect independent LEDs to. The maximum current that
+        can be reached safely on the arduino is 200mA, which would round to
+        about 14.3mA per LED.<br/>
+        <br/>
+        2: How fast do you need to blink your LEDs until you no longer can tell
+        that they are blinking?<br/>
+        You need to blink your LEDs at delay(10) for the LEDs to appear like they
+        are no longer blinking.<br/>
+        <br/>
+        3: Did you use AI tools in completing this assignment?<br/>
+        I did not use any AI tools to complete this assignment. I referred to
+        in-class slides and notes that I took on my own
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="calculations">
+          <h2>Calculations:</h2>
+          <img src="calculations.jpg" />
+        <p>Using the equation I = V*R, I rearranged the equation to solve for R
+          which is the resistor. I found V using the total voltage (5V) minus the 
+          volatage drop over the LEDs (2V for red LEDs and 3.2V for the green LED).
+          I calculated for 20mA over each circuit and solved for each circuit
+          individually, because I constructed parallel circuits.
+        </p>
+      </div>
+
+      <div class="schematic">
+          <h2>Schematic:</h2>
+          <img src="schematic.jpg" />
+        <p>I created these schematics using icons learned in class and basing them
+          loosly off the examples we were shown in class. The power source is 5V, 
+          the current is 20mA, and the resistors are 220 for the red LEDs and 100 for
+          the green LED. I labeled all parts of the schematic and used the drawing to
+          create my circuit.
+        </p>
+      </div>
+
+      <div class="graph">
+          <h2>Graph:</h2>
+          <img src="graph.jpg" />
+        <p>Because the lights are turning on and off, they are going from complete 
+          voltage output to zero voltage output. The voltage drop is 2V for red LEDs
+          and 3.2V for the green, which is why LED 1 and three max out at 2V for their
+          peak output and why LED2 goes up to 3.2V. The red and green lights are also
+          flashing opposite, which explains why LED1 and LED3 are 0 when LED2 is peaked
+          and vise versa.
+        </p>
+      </div>
     </div>
   </body>
 </html>
