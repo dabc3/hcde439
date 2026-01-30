@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Devon Castillo's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 3: Input Output!</h1>
+    <div class="header">
+      <img src="operation3.gif" height="400"/><br/>
+      <p>
+        To the right you will see a gif of my operating circuit.
+        Below, you will find the calculations for the resistors and the 
+        circiut schematic that made this operating circuit possible. You will
+        also find a graph Plot the voltage at V-measure (where your pin is
+        reading the voltage) of my voltage divider of my operating circuit gif.
+        The final entry on this page will be a code snippet of the code that
+        I used to complete this assignment. Below are some bonus questions
+        from this assignment.<br/>
+        <br/>
+        Additional Questions:<br/>
+        1: In your voltage divider, can the variable resistor be either R1 or R2
+        or does it need to be one or the other? Justify your answer with example
+        calculations.<br/>
+        Yes, the variable resistor can be either R1 or R2, the choice just changes
+        how Vmeasure behaves as the resistance changes. In the first instance where
+        the variable resistor is R2, lets assume Vin = 5V, and the voltage divider (R1)
+        is 10k ohmns. In the light, V = 5(2k / (10k + 2k)) = 0.83V in the dark, V = 5(20k
+        / (10k + 20k)) = 3.33V. As resistance increases, Vmeasure increases. In the
+        other case, the variable resistor is R1 and R2 = 10K ohmns. In the light, V =
+        5(10k / (2k + 10k)) = 4.17V in the dark, V = 5(10k / (20k + 10k)) = 1.67V. As
+        resistance increases, Vmeasure decreases.<br/>
+        <br/>
+        2: AnalogWrite and analogRead are respectively 8-bit and 10-bit values.
+        Imagine you had 10-bit PWM and a 16-bit analog-to-digital converter instead.
+        How would this change your map() code? Explain your answer.<br/>
+        the 10-bit PMW would read values from 0-1023 (2^10) and the 16-bit
+        analog-to-digital converter would read values from 0-65535 (2^16). This would
+        change the fromLow, fromHigh, toLow and toHigh values of our map. The
+        from values are coming from the PWM and the to values are from the
+        analog-to-digital converter. Therefore the map function would read as:
+        map(value, 0, 1023, 0, 65535).<br/>
+        <br/>
+        3: Did you use AI tools in completing this assignment?<br/>
+        I did not use any AI tools to complete this assignment. I referred to
+        in-class slides and notes that I took on my own.
+      </p>
+    </div>
+
+    <div class="header">
+      <h2>Top and Side Views:</h2>
+        <img src="topview3.jpeg"/>
+        <img src="sideview3.jpeg"/>
+    </div>
+
+    <div class="grid">
+      <div class="calculations">
+          <h2>Calculations:</h2>
+          <img src="calculations3.jpg" />
+        <p>Using the equation I = V*R, I rearranged the equation to solve for R
+          which is the resistor. I found V using the total voltage (5V) minus the 
+          volatage drop over the LEDs (2V for red LEDs and 3.2V for the green LED).
+          I calculated for 20mA over each circuit and solved for each circuit
+          individually, because I constructed parallel circuits. For the photoresistor,
+          I took measurements of the resistance in both the light (Rlow) and the dark
+          (Rhigh) using my multimeter, and used the equation R2 = sqrt(Rlow x Rhigh).
+          I then rounded to the nearest resistor which would be 10K ohms.
+        </p>
+      </div>
+
+      <div class="schematic">
+          <h2>Schematic:</h2>
+          <img src="schematic3.jpg" />
+        <p>I created these schematics using icons learned in class and basing them
+          loosly off the examples we were shown in class. The power source is 5V 
+          and the resistors are 220 for the red LEDs and 100 for the green LED.
+          The resistor for the photoresistor should be 10K ohms based on my 
+          calculations I labeled all parts of the schematic and used the drawing
+          to create my circuit.
+        </p>
+      </div>
+
+      <div class="graph">
+          <h2>Graph:</h2>
+          <img src="graph3.jpg" />
+        <p>The graph represents voltage at V-measure of my voltage divider of 
+          my gif/video. My logic in making the graph was the idea that the pin
+          housing the photoresistor does not put out smooth voltage, but oscillating
+          voltage from 0 (low), to 5 (high) because the arduino puts out a PWM signal.
+          the time that the change happens grows between each on an off cycle, meaning
+          the spaces in between voltage spikes/drops increases on my graph.
+        </p>
+      </div>
+    </div>
+    
+    <div class="code">
+          <br/>
+          <br/>
+          <h2>Code Snippet:</h2>
+        <pre>
+          // These constants won't change. They're used to give names to the pins used:
+          const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
+          const int analogOutPinR = 9;  // Analog output pin that the r LED is attached to
+          const int analogOutPinG = 10;  // Analog output pin that the g LED is attached to
+          int sensorValue = 0;  // value read from the pot
+          int outputValue = 0;  // value output to the PWM (analog out)
+
+          void setup() {
+            // initialize serial communications at 9600 bps:
+            Serial.begin(9600);
+          }
+
+          void loop() {
+            // read the analog in value:
+            sensorValue = analogRead(analogInPin);
+            // map it to the range of the analog out:
+            outputValue = map(sensorValue, 0, 1023, 0, 255);
+
+            //if our sensor value is less than halfway lit,
+            if (sensorValue <= 512) {
+              // serial print which color led is on
+              Serial.println("red light is on");
+              // change red led to the outputValue
+              analogWrite(analogOutPinR, outputValue);
+              // turn green led off
+              analogWrite(analogOutPinG, 0);
+            //if our sensor value is more than halfway lit,
+            } else {
+              // serial print which color led is on
+              Serial.println("green light is on");
+              // change red led off
+              analogWrite(analogOutPinR, 0);
+              // change red led to the outputValue
+              analogWrite(analogOutPinG, outputValue);
+            }
+            //delay the loop so you can see what is happening
+            delay(10);
+          }
+        </pre>
+    </div>
+  </body>
+</html>
