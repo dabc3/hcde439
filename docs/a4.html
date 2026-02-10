@@ -22,7 +22,7 @@
         this assignment. Below are some bonus questions from this assignment.<br/>
         <br/>
         Additional Questions:<br/>
-        1: 2: Your input device is slightly broken, leading it to give us an erroneous
+        1: Your input device is slightly broken, leading it to give us an erroneous
         reading 1% of the time. How can we address this? Answer in (pseudo)code.<br/>
 
         answer
@@ -94,7 +94,7 @@
           <br/>
           <h2>Code Snippet:</h2>
         <pre>
-          #include <Servo.h>
+          #include < Servo.h>
 
           Servo myservo;  // create Servo object to control a servo
 
@@ -108,20 +108,19 @@
           }
 
           void loop() {
-            myservo.write(0);                       // start bthe motor position at 0
-            light = analogRead(potpin);            // reads the value of the potentiometer (value between 0 and 1023)
+            myservo.write(0);                     // start bthe motor position at 0
+            light = analogRead(potpin);           // reads the value of the potentiometer (value between 0 and 1023)
             light = constrain(light, 208, 815);   // constrains the light value's max and min (between 208 and 815)
 
             temp = analogRead(therpin);            // reads the value of the thermistor (value between 0 and 1023)
-            temp = constrain(temp, 463, 517);       // constrains the temp value's max and min (between 463 and 517)
+            temp = constrain(temp, 463, 517);      // constrains the temp value's max and min (between 463 and 517)
 
             if(light > 511 && temp >= 490){        // if the light sensor and temp sensor read more than the halfway
-                                                  // point, (more light and more warm)
+                                                   // point, (more light and more warm)
               myservo.write(180);                  // move the motor all the way to 180
               delay(50);
-            }                                       // otherwise the motor will move back to 0
+            }                                      // otherwise the motor will move back to 0
           }
-
         </pre>
     </div>
   </body>
