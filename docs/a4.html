@@ -13,13 +13,17 @@
     <div class="header">
       <img src="operation4.gif" height="400"/><br/>
       <p>
-        To the right you will see a gif of my operating circuit.
-        Below, you will find the calculations for the resistors and the 
-        circiut schematic that made this operating circuit possible. You will
-        also find a graph of the voltage of a circuit with the loop stated in
-        the directions. Further explaination is down below. The final entry on
-        this page will be a code snippet of the code that I used to complete
-        this assignment. Below are some bonus questions from this assignment.<br/>
+        To the right you will see a gif of my operating circuit. The servo motor
+        moves to an 180 degrees location when the photoresistor reads greater
+        than half the possible light value AND when the thermistor reads greater
+        than half the possible temperature value. The motor stays in this potision
+        until either one or both of the conditions are no longer true. Below, you
+        will find the calculations for the resistors and the circiut schematic
+        that made this operating circuit possible. You will also find a graph of
+        the voltage of a circuit with the loop stated in the directions. Further
+        explaination is down below. The final entry on this page will be a code
+        snippet of the code that I used to complete this assignment. Below are some
+        bonus questions from this assignment.<br/>
         <br/>
         Additional Questions:<br/>
         1: Your input device is slightly broken, leading it to give us an erroneous
@@ -108,7 +112,7 @@
           }
 
           void loop() {
-            myservo.write(0);                     // start bthe motor position at 0
+            myservo.write(0);                     // start the motor position at 0
             light = analogRead(potpin);           // reads the value of the potentiometer (value between 0 and 1023)
             light = constrain(light, 208, 815);   // constrains the light value's max and min (between 208 and 815)
 
@@ -118,7 +122,7 @@
             if(light > 511 && temp >= 490){        // if the light sensor and temp sensor read more than the halfway
                                                    // point, (more light and more warm)
               myservo.write(180);                  // move the motor all the way to 180
-              delay(50);
+              delay(1000);                         // delay loop for one second
             }                                      // otherwise the motor will move back to 0
           }
         </pre>
