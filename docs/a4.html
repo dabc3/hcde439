@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Devon Castillo's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 4: Libraries!</h1>
+    <div class="header">
+      <img src="operation4.gif" height="400"/><br/>
+      <p>
+        To the right you will see a gif of my operating circuit.
+        Below, you will find the calculations for the resistors and the 
+        circiut schematic that made this operating circuit possible. You will
+        also find a graph of the voltage of a circuit with the loop stated in
+        the directions. Further explaination is down below. The final entry on
+        this page will be a code snippet of the code that I used to complete
+        this assignment. Below are some bonus questions from this assignment.<br/>
+        <br/>
+        Additional Questions:<br/>
+        1: 2: Your input device is slightly broken, leading it to give us an erroneous
+        reading 1% of the time. How can we address this? Answer in (pseudo)code.<br/>
+
+        answer
+        
+        <br/>
+        <br/>
+        2: Your input device is slightly noisy, leading the measurement to randomly deviate
+        from the true measurement up or down by 10%. How can we address this? Answer in
+        (pseudo)code.<br/>
+        
+        answer
+        
+        <br/>
+        <br/>
+        3: Did you use AI tools in completing this assignment?<br/>
+        I originally tried using a photoresistor, servo, and buzzer in my circuit. I tried
+        using the servo and tone libraries simultaneously, but got a weird error that I asked
+        ChatGPT to explain. It told me that I could not use servos and buzzers together without
+        doing some crazy work around or without using 2 libraries like the assignment says, so
+        I ended up changing my entire project. I did not use AI after decoding the error.
+      </p>
+    </div>
+
+    <div class="header">
+      <h2>Top and Side Views:</h2>
+        <img src="topview4.jpeg"/>
+        <img src="sideview4.jpeg"/>
+    </div>
+
+    <div class="grid">
+      <div class="calculations">
+          <h2>Calculations:</h2>
+          <img src="calculations4.jpg" />
+        <p>For the photoresistor, I took measurements of the resistance in both the
+          light (Rlow) and the dark (Rhigh) using my multimeter, and used the equation
+          R2 = sqrt(Rlow x Rhigh). I then rounded to the nearest resistor which would
+          be 10K ohms. This was the same process I used for the thermistor, but instead
+          of light and dark conditions, I measured the resistance when I was touching it
+          and not.
+        </p>
+      </div>
+
+      <div class="schematic">
+          <h2>Schematic:</h2>
+          <img src="schematic4.jpg" />
+        <p>I created these schematics using icons learned in class and basing them
+          loosly off the examples we were shown in class. The power source is 5V and
+          the resistor for the photoresistor and thermistor should be 10K ohms based
+          on my calculations. I labeled all parts of the schematic and used the drawing
+          to create my circuit.
+        </p>
+      </div>
+
+      <div class="graph">
+          <h2>Graph:</h2>
+          <img src="graph4.jpg" />
+        <p>The graph represents voltage of my pin 9 as my code loops through the for
+          loop displayed in the picture. My logic in making the graph was the idea that
+          the pin housing the servo (output) does not put out smooth voltage, but
+          oscillating voltage from 0 (low), to 5 (high) because the arduino puts out a
+          PWM signal. The time that the change happens grows between each on an off
+          cycle, meaning the spaces in between voltage spikes/drops increases on my graph.
+        </p>
+      </div>
+    </div>
+    
+    <div class="code">
+          <br/>
+          <br/>
+          <h2>Code Snippet:</h2>
+        <pre>
+          #include <Servo.h>
+
+          Servo myservo;  // create Servo object to control a servo
+
+          int potpin = A0;  // analog pin used to connect the potentiometer
+          int therpin = A1;  // analog pin used to connect the thermistor
+          int light;    // variable to read the value from the potpin
+          int temp;     // variable to read the value from the therpin
+
+          void setup() {
+            myservo.attach(9);  // attaches the servo on pin 9 to the Servo object
+          }
+
+          void loop() {
+            myservo.write(0);                       // start bthe motor position at 0
+            light = analogRead(potpin);            // reads the value of the potentiometer (value between 0 and 1023)
+            light = constrain(light, 208, 815);   // constrains the light value's max and min (between 208 and 815)
+
+            temp = analogRead(therpin);            // reads the value of the thermistor (value between 0 and 1023)
+            temp = constrain(temp, 463, 517);       // constrains the temp value's max and min (between 463 and 517)
+
+            if(light > 511 && temp >= 490){        // if the light sensor and temp sensor read more than the halfway
+                                                  // point, (more light and more warm)
+              myservo.write(180);                  // move the motor all the way to 180
+              delay(50);
+            }                                       // otherwise the motor will move back to 0
+          }
+
+        </pre>
+    </div>
+  </body>
+</html>
