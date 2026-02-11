@@ -11,7 +11,7 @@
   <body>
     <h1>Assignment 4: Libraries!</h1>
     <div class="header">
-      <img src="operation4.gif" height="400"/><br/>
+      <img src="operation4.gif" height="300"/><br/>
       <p>
         To the right you will see a gif of my operating circuit. The servo motor
         moves to an 180 degrees location when the photoresistor reads greater
@@ -30,10 +30,11 @@
         reading 1% of the time. How can we address this? Answer in (pseudo)code.<br/>
         If the input device is slightly broken, you can filter through the data and 
         correct the code everytime the input device errors. to do this you would use
-        a simple if statement that assigns the  currentValue to the previousValue
-        before the error. There would be 2 if statments, one that determines if the
-        value is way out of bounds, and one that determines if the current value is
-        accurately in line with the projected input values:<br/>
+        two if statements that assigns the currentValue to the previousValue
+        if an error occurs. There would be 2 if statments, one that determines if the
+        value current value is
+        accurately in line with the projected input values, and one that determines
+        if is out of bounds:<br/>
           /*if the currentValue reads above 1.2 times the previous value, it is
           likely wrong because it does not follow the projected path.*/<br/>
           if (photoresistorValue > 1.2 * previousValue){<br/>
@@ -43,7 +44,7 @@
           }<br/>
           /*if the photoresistorValue is completely out of the bounds of the input
           device it is also wrong.*/<br/>
-          if (photoresistorValue > 1023){<br/>
+          if (photoresistorValue > 1023 || photoresistorValue < 0){<br/>
             /*assign the current value to match the previous value so the erroneous
             reading does not affect the use of the input data.*/<br/>
             photoresistorValue = previous value;<br/>
@@ -120,8 +121,8 @@
           loop displayed in the picture. My logic in making the graph was the idea that
           the pin housing the servo (output) does not put out smooth voltage, but
           oscillating voltage from 0 (low), to 5 (high) because the arduino puts out a
-          PWM signal. The time that the change happens grows between each on an off
-          cycle, meaning the spaces in between voltage spikes/drops increases on my graph.
+          PWM signal. Time in between the spikes remains the same, but the spike duration
+          increases because we are increasing the position the servo every 100 ms.
         </p>
       </div>
     </div>
@@ -155,8 +156,8 @@
             if(light > 511 && temp >= 490){        // if the light sensor and temp sensor read more than the halfway
                                                    // point, (more light and more warm)
               myservo.write(180);                  // move the motor all the way to 180
-              delay(1000);                         // delay loop for one second
-            }                                      // otherwise the motor will move back to 0
+              delay(1000);                         // delay loop for one second otherwise the motor will move back to 0
+            }
           }
         </pre>
     </div>
