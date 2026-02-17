@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Devon Castillo's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 4: Libraries!</h1>
+    <div class="header">
+      <img src="operation5.gif" height="300"/><br/>
+      <p>
+        To the right you will see a gif of my operating circuit. The  series of
+        white leds that fade when button 1 is hit on the IR remote, and turn off
+        when button 2 is hit. Below, you will find the calculations for the
+        resistors the circiut schematic that made this operating circuit possible,
+        and some bonus questions from this assignment. The final entry on this page
+        will be a code snippet of the code that I used to complete this assignment.<br/>
+        <br/>
+        Additional Questions:<br/>
+        1: Your input device is slightly broken, leading it to give us an erroneous
+        reading 1% of the time. How can we address this? Answer in (pseudo)code.<br/>
+        If the input device is slightly broken, you can filter through the data and 
+        correct the code everytime the input device errors. to do this you would use
+        two if statements that assigns the currentValue to the previousValue
+        if an error occurs. There would be 2 if statments, one that determines if the
+        value current value is
+        accurately in line with the projected input values, and one that determines
+        if is out of bounds:<br/>
+          /*if the currentValue reads above 1.2 times the previous value, it is
+          likely wrong because it does not follow the projected path.*/<br/>
+          if (photoresistorValue > 1.2 * previousValue){<br/>
+            /*assign the current value to match the previous value so the erroneous
+            reading does not affect the use of the input data.*/<br/>
+            photoresistorValue = previous value;<br/>
+          }<br/>
+          /*if the photoresistorValue is completely out of the bounds of the input
+          device it is also wrong.*/<br/>
+          if (photoresistorValue > 1023 || photoresistorValue < 0){<br/>
+            /*assign the current value to match the previous value so the erroneous
+            reading does not affect the use of the input data.*/<br/>
+            photoresistorValue = previous value;<br/>
+          }<br/>
+        <br/>
+        <br/>
+        2: Your input device is slightly noisy, leading the measurement to randomly deviate
+        from the true measurement up or down by 10%. How can we address this? Answer in
+        (pseudo)code.<br/>
+        for this kind of error, you would need to use a moving average filter for the input
+        values, so that the progression of the data is accurate, even when random deviations
+        occur. Within void loop(), you would read the last input data point, add it to the 
+        total, then divide by the number of total input digits in the data to get an averaged
+        current data point:<br/>
+        /* initialize these integrers to keep track of the input data points added up (total),
+        the total number of data points (totInputs), and the averaged out value (average)*/<br/>
+        int total = 0;<br/>
+        int totInputs = 0;<br/>
+        int average = 0;<br/>
+        void loop()<br/>
+        /*read the current input value using dR or aR depending on the input device*/<br/>
+        total = dR(inputDevice);<br/>
+        /*add the input value to the totInputs value*/<br/>
+        totInputs = totInputs + total;<br/>
+        /* calculate the average datapoint using this updated totInputs and total integer*/<br/>
+        average = totInputs/total;<br/>
+        the average value changes everytime the function loops because the code reads the new
+        input value at the top, updating the total and totInputs values every loop.<br/>
+        <br/>
+        <br/>
+        3: Did you use AI tools in completing this assignment?<br/>
+        I originally tried using a photoresistor, servo, and buzzer in my circuit. I tried
+        using the servo and tone libraries simultaneously, but got a weird error that I asked
+        ChatGPT to explain. It told me that I could not use servos and buzzers together without
+        doing some crazy work around or without using 2 libraries like the assignment says, so
+        I ended up changing my entire project. I did not use AI after decoding the error.
+      </p>
+    </div>
+
+    <div class="header">
+      <h2>Top and Side Views:</h2>
+        <img src="topview5.jpeg"/>
+        <img src="sideview5.jpeg"/>
+    </div>
+
+    <div class="grid">
+      <div class="calculations">
+          <h2>Calculations:</h2>
+          <img src="calculations5.jpg" />
+        <p>For the photoresistor, I took measurements of the resistance in both the
+          light (Rlow) and the dark (Rhigh) using my multimeter, and used the equation
+          R2 = sqrt(Rlow x Rhigh). I then rounded to the nearest resistor which would
+          be 10K ohms. This was the same process I used for the thermistor, but instead
+          of light and dark conditions, I measured the resistance when I was touching it
+          and not.
+        </p>
+      </div>
+
+      <div class="schematic">
+          <h2>Schematic:</h2>
+          <img src="schematic5.jpg" />
+        <p>I created these schematics using icons learned in class and basing them
+          loosly off the examples we were shown in class. The power source is 5V and
+          the resistor for the photoresistor and thermistor should be 10K ohms based
+          on my calculations. I labeled all parts of the schematic and used the drawing
+          to create my circuit.
+        </p>
+      </div>
+
+      <div class="graph">
+          <h2>Graph:</h2>
+          <img src="graph5.jpg" />
+        <p>The graph represents voltage of my pin 9 as my code loops through the for
+          loop displayed in the picture. My logic in making the graph was the idea that
+          the pin housing the servo (output) does not put out smooth voltage, but
+          oscillating voltage from 0 (low), to 5 (high) because the arduino puts out a
+          PWM signal. Time in between the spikes remains the same, but the spike duration
+          increases because we are increasing the position the servo every 100 ms.
+        </p>
+      </div>
+    </div>
+    
+    <div class="code">
+          <br/>
+          <br/>
+          <h2>Code Snippet:</h2>
+        <pre>
+          #include < IRremote.hpp> //import IRremote library
+
+          const int IRreceiverPin = 2; // pin that holds the IR receiver
+          const int LEDsPin = 10; // pin that holds the leds
+          int brightness = 0; // how bright the LED is
+          int fadeAmount = 0; // how many points to fade the LED by
+
+          // setup components
+          void setup() {
+            IrReceiver.begin(IRreceiverPin, ENABLE_LED_FEEDBACK); // allow the receiver to give led feedback from remote
+            pinMode(LEDsPin, OUTPUT); // make the ledspin int an output
+            }
+
+          void loop() {
+            // take output from IR reciever
+            if (IrReceiver.decode()){
+              // if button 1 is pressed
+              if (IrReceiver.decodedIRData.decodedRawData == 0xF30CFF00){ 
+                // change the fade amount to 5
+                fadeAmount = 5;
+              }
+              // if button 2 is pressed 
+              if (IrReceiver.decodedIRData.decodedRawData == 0xE718FF00){
+                // make brightness 0 (turn leds off)
+                brightness = 0;
+                // make fade amount 0 (do not fade leds)
+                fadeAmount = 0;
+              }
+              // resume the decoder
+              IrReceiver.resume();
+            }
+            // Only run the fade logic if fadeAmount is not 0
+            if (fadeAmount != 0) {
+              // add fade amount to brightness value
+              brightness += fadeAmount;
+
+              // Reverse direction and constrain brightness
+              if (brightness <= 0 || brightness >= 255) {
+                // make fade negative so it fades the opposite direction
+                fadeAmount = -fadeAmount;
+              }
+              
+              // keep brightness within 0-255 range
+              brightness = constrain(brightness, 0, 255);
+              // set the LEDsPin output to the brightness value
+              analogWrite(LEDsPin, brightness);
+              
+              delay(30); // Control the speed of the fade
+            } else {
+              // If not fading, ensure it stays off
+              analogWrite(LEDsPin, brightness);
+            }
+          }
+        </pre>
+    </div>
+  </body>
+</html>
