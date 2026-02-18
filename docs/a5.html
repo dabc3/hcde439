@@ -59,8 +59,8 @@
         </p>
         <img src="question3.jpg" />
         <pre>
-          (the ground and voltage symbols will be connected to ground and Vin or 5V on the
-          arduino board)
+          (the ground and voltage symbols will be connected
+          to ground and Vin or 5V on the arduino board)
           //initialize variables. ex:
           int D5 = 5;
           ...
@@ -97,7 +97,8 @@
             if (hasRun == true){
               // run the movement function
               movement()
-              //then make the boolean value false so movement does not run anymore
+              //then make the boolean value false so movement
+              //does not run anymore
               hasRun == false;
             }
             // stop both motors
@@ -154,7 +155,8 @@
 
           // setup components
           void setup() {
-            IrReceiver.begin(IRreceiverPin, ENABLE_LED_FEEDBACK); // allow the receiver to give led feedback from remote
+            // allow the receiver to give led feedback from remote
+            IrReceiver.begin(IRreceiverPin, ENABLE_LED_FEEDBACK); 
             pinMode(LEDsPin, OUTPUT); // make the ledspin int an output
             }
 
