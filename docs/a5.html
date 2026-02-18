@@ -11,23 +11,23 @@
   <body>
     <h1>Assignment 4: Libraries!</h1>
     <div class="header">
-      <img src="operation5.gif" height="300"/><br/>
+      <img src="operation5.gif" height="400"/><br/>
       <p>
-        To the right you will see a gif of my operating circuit. The  series of
-        white leds that fade when button 1 is hit on the IR remote, and turn off
+        To the right you will see a gif of my operating circuit. The series of
+        white LEDs fade when button 1 is hit on the IR remote, and turn off
         when button 2 is hit. I used a transistor because the three white led
-        current input is greater than the pin current tolerance (~40mA). without
-        the transitor, the lights would glow, but not as bright as their max.
-        Below, you will find the calculations for the resistors the circiut
-        schematic that made this operating circuit possible, and some bonus questions
-        from this assignment. The final entry on this page will be a code snippet of
-        the code that I used to complete this assignment.<br/>
+        current input is greater than the pin current tolerance (~40mA). Without
+        the transitor, the LEDs would glow, but not as bright as their max output.
+        Below, you will find and some bonus questions from this assignment, the
+        calculations for the resistors, and the circiut schematic that made this
+        operating circuit possible. The final entry on this page will be a code
+        snippet of the code that I used to complete this assignment.<br/>
         <br/>
         Did you use AI tools in completing this assignment?<br/>
         I used ChatGPT to try to troubleshoot why my IR receiver was not working 
         after I plugged the Vin into the 12V power source. Turns out I killed my
         sensor and I had to get a new one. I did not use AI after getting a new IR
-        receiver module error.
+        receiver module.
       </p>
     </div>
 
@@ -37,8 +37,8 @@
         <p>Read the text on your mosfet to see which one you have. For your mosfet,
           what is the absolute maximum amount of current between pins 2 and 3?<br/>
           I have the IRLZ44N n-mosfet transitor, and from the datasheet, the maximum
-          continuous drain current (between pins 2 and 3), is 47 Amps, assuming the
-          temperature is maintained at 25 degrees C.
+          continuous drain current (current that runs between pins 2 and 3), is 47
+          Amps, assuming the temperature is maintained at 25 degrees C.
         </p>
       </div>
 
@@ -59,12 +59,18 @@
         </p>
         <img src="question3.jpg" />
         <pre>
-          //initialize variables for the output pins
-          //Setup
-          Set pins D5, D6, D7, D8, D9, and D10 as OUTPUT
-          Set enable pins (D5 and D9) to HIGH (activate H-Bridge)
+          (the ground and voltage symbols will be connected to ground and Vin or 5V on the
+          arduino board)
+          //initialize variables. ex:
+          int D5 = 5;
+          ...
+          bool hasRan = true;
+          setup(){
+            Set pins D5, D6, D7, D8, D9, and D10 as OUTPUTs
+            Set enable pins (D5 and D9) to HIGH (activate H-Bridge)
+          }
 
-          void movement():
+          movement(){
             // move both motors forwards
             Set D6 to HIGH and D7 to LOW //motor 1
             Set D8 to HIGH and D10 to LOW //motor 2
@@ -84,9 +90,16 @@
             Set D6 to LOW and D7 to HIGH  //motor 1
             Set D8 to HIGH and D10 to LOW //motor 2
             delay(500)
+          }
 
           void loop(){
-            movement()
+            //if this is the first time the code has run...
+            if (hasRun == true){
+              // run the movement function
+              movement()
+              //then make the boolean value false so movement does not run anymore
+              hasRun == false;
+            }
             // stop both motors
             Set D6, D7, D8, and D10 to LOW
           }
@@ -98,12 +111,11 @@
       <div class="calculations">
           <h2>Calculations:</h2>
           <img src="calculations5.jpg" />
-        <p>For the photoresistor, I took measurements of the resistance in both the
-          light (Rlow) and the dark (Rhigh) using my multimeter, and used the equation
-          R2 = sqrt(Rlow x Rhigh). I then rounded to the nearest resistor which would
-          be 10K ohms. This was the same process I used for the thermistor, but instead
-          of light and dark conditions, I measured the resistance when I was touching it
-          and not.
+        <p>I used the equation V=IR rearranged to R=V/I to find the resistor needed
+          for the white LED branch. Voltage input was 12V from the source, and the 
+          voltage drop was 3.4V per white led (times 3 LEDs). This is a total voltage
+          drop of 10.2V, leaving us with 1.8V over 20mA. I got 90 ohms from my
+          calculations, but was told to round to 220 ohms in class for safety.
         </p>
       </div>
 
@@ -114,9 +126,10 @@
           loosly off the examples we were shown in class. The power source is 12V and
           the resistor for the LEDs should be 220 ohms based on my calculations and
           revisions that were told in class. I also included a transitor in the led 
-          branch. The IR receiver can only manage up to 5V of current, so I plugged
-          that component into the 5V slot on the arduino. I labeled all parts of the
-          schematic and used the drawing to create my circuit.
+          branch so the white LEDs could shine at their max capacity. The IR receiver
+          can only manage up to 5V of current, so I plugged that component into the
+          5V slot on the arduino. I labeled all parts of the schematic and used the
+          drawing to create my circuit.
         </p>
       </div>
     </div>
