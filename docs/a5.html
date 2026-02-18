@@ -31,10 +31,67 @@
       </p>
     </div>
 
-    <div class="header">
-      <h2>Top and Side Views:</h2>
-        <img src="topview5.jpeg"/>
-        <img src="sideview5.jpeg"/>
+    <div class="grid">
+      <div class="question1">
+        <h2>Question 1:</h2>
+        <p>Read the text on your mosfet to see which one you have. For your mosfet,
+          what is the absolute maximum amount of current between pins 2 and 3?<br/>
+          I have the IRLZ44N n-mosfet transitor, and from the datasheet, the maximum
+          continuous drain current (between pins 2 and 3), is 47 Amps, assuming the
+          temperature is maintained at 25 degrees C.
+        </p>
+      </div>
+
+      <div class="question2">
+        <h2>Question 2:</h2>
+        <p>Draw a schematic for a circuit with using at least your arduino, a DC motor,
+          a flyback diode, and capacitors between power and ground. Find parts with
+          datasheets you could use for each of these schematic components.
+        </p>
+        <img src="question2.jpg" />
+      </div>
+
+      <div class="question3">
+        <h2>Question 3:</h2>
+        <p>Draw a schematic using at least your arduino, this chip, and two motors.
+          Write (pseudo) code that shows how you would move the motors both forward,
+          both back, then one forward one back, and one back then forward.
+        </p>
+        <img src="question3.jpg" />
+        <pre>
+          //initialize variables for the output pins
+          //Setup
+          Set pins D5, D6, D7, D8, D9, and D10 as OUTPUT
+          Set enable pins (D5 and D9) to HIGH (activate H-Bridge)
+
+          void movement():
+            // move both motors forwards
+            Set D6 to HIGH and D7 to LOW //motor 1
+            Set D8 to HIGH and D10 to LOW //motor 2
+            delay(500)
+
+            // move both motors backwards
+            Set D6 to LOW and D7 to HIGH  //motor 1
+            Set D8 to LOW and D10 to HIGH //motor 2
+            delay(500)
+
+            // one forward one back (turn right)
+            Set D6 to HIGH and D7 to LOW  //motor 1
+            Set D8 to LOW and D10 to HIGH //motor 2
+            delay(500)
+
+            // one back one forward (turn left)
+            Set D6 to LOW and D7 to HIGH  //motor 1
+            Set D8 to HIGH and D10 to LOW //motor 2
+            delay(500)
+
+          void loop(){
+            movement()
+            // stop both motors
+            Set D6, D7, D8, and D10 to LOW
+          }
+        </pre>
+      </div>
     </div>
 
     <div class="grid">
@@ -54,24 +111,20 @@
           <h2>Schematic:</h2>
           <img src="schematic5.jpg" />
         <p>I created these schematics using icons learned in class and basing them
-          loosly off the examples we were shown in class. The power source is 5V and
-          the resistor for the photoresistor and thermistor should be 10K ohms based
-          on my calculations. I labeled all parts of the schematic and used the drawing
-          to create my circuit.
+          loosly off the examples we were shown in class. The power source is 12V and
+          the resistor for the LEDs should be 220 ohms based on my calculations and
+          revisions that were told in class. I also included a transitor in the led 
+          branch. The IR receiver can only manage up to 5V of current, so I plugged
+          that component into the 5V slot on the arduino. I labeled all parts of the
+          schematic and used the drawing to create my circuit.
         </p>
       </div>
+    </div>
 
-      <div class="graph">
-          <h2>Graph:</h2>
-          <img src="graph5.jpg" />
-        <p>The graph represents voltage of my pin 9 as my code loops through the for
-          loop displayed in the picture. My logic in making the graph was the idea that
-          the pin housing the servo (output) does not put out smooth voltage, but
-          oscillating voltage from 0 (low), to 5 (high) because the arduino puts out a
-          PWM signal. Time in between the spikes remains the same, but the spike duration
-          increases because we are increasing the position the servo every 100 ms.
-        </p>
-      </div>
+    <div class="header">
+      <h2>Top and Side Views:</h2>
+        <img src="topview5.jpeg"/>
+        <img src="sideview5.jpeg"/>
     </div>
     
     <div class="code">
