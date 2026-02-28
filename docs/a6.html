@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Devon Castillo's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Assignment 6: Talking to the Web!</h1>
+    <div class="header">
+      <img src="operation6.gif" height="400"/><br/>
+      <p>
+        To the right you will see a gif of my operating circuit. cirucit connects to 
+        a digital game displayed on a web browser. You can control a little animation
+        of a watering can using the joystick. The x and y values on the joystick
+        translate to the position of the watering can on the screen. When you press
+        the mouse, the screen turns orange, and the red led, or grow lamp, turn on. 
+        This game is supposed to mimic the basic functions of a plant growing simulator,
+        being able to move and water plants and turn on the grow lamp to help them grow.
+        <br/>
+        <br/>
+        Did you use AI tools in completing this assignment?<br/>
+        I used gemini to come up with ideas for a project to complete, but did 
+        not use AI for the remainder of the project. I additionally used JavaScript
+        experience that I have from high school to complete the .js file code.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="calculations">
+          <h2>Calculations:</h2>
+          <img src="calculations6.jpg" />
+        <p>I used the equation V=IR rearranged to R=V/I to find the resistor needed
+          for the red LED. Voltage input is 5V from the source, and the voltage drop
+          is 2V for the red led, leaving us with 3V over 20mA. I got 150 ohms from my
+          calculations, but was told to round to 220 ohms in class for safety.  The
+          joystick does not need a resistor.
+        </p>
+      </div>
+
+      <div class="schematic">
+          <h2>Schematic:</h2>
+          <img src="schematic6.jpg" />
+        <p>I created these schematics using icons learned in class. The power source
+          is 5V for both the led and the joystick. The resistor for the LED should be
+          220 ohms based on my calculations and revisions that were told in class. The
+          joystick is connected to ground on the first pin, 5v on the second pin, and
+          analog on the 3rd (xVal) and 4th (yVal) pins.
+        </p>
+      </div>
+    </div>
+
+    <div class="header">
+      <h2>Top and Side Views:</h2>
+        <img src="topview6.jpeg"/>
+        <img src="sideview6.jpeg"/>
+    </div>
+    
+    <div class="arduinoCode">
+          <br/>
+          <br/>
+          <h2>Arduino Code Snippet:</h2>
+        <pre>
+          const int xAxis = A1; // the x-axis on the joystick connects to pin A1
+          const int yAxis = A0; // the y-axis on the joystick connects to pin A0
+          const int LED = 11; // the led connects to pin 11
+
+          // setup
+          void setup() {
+            // begin the serial port
+            Serial.begin(9600);
+            // establish the led int as an output
+            pinMode(LED, OUTPUT);
+          }
+
+          // loop
+          void loop() {
+            // Read joystick X value and assign it to an integer
+            int xVal = analogRead(xAxis);
+            // Read joystickY value and assign it to an integer
+            int yVal = analogRead(yAxis);
+
+            // Send data to p5.js: "xVal,yVal"
+            Serial.print(xVal); // print xVal
+            Serial.print(","); // print ","
+            Serial.println(yVal); // print yVal and make a new line
+
+            // Check for input from p5.js
+            // if theres a byte of data in the serial port...
+            if (Serial.available() > 0) {
+              // create ledState character from the value in the serial port
+              char ledState = Serial.read();
+              // if the character is 1 turn the led on
+              if (ledState == '1') digitalWrite(LED, HIGH);
+              // otherwise, if the character is 0 turn the led off
+              else if (ledState == '0') digitalWrite(LED, LOW);
+            }
+            // delay to make loop flow smooth
+            delay(20);
+          }
+        </pre>
+    </div>
+
+    <div class="javascriptCode">
+          <br/>
+          <br/>
+          <h2>JavaScript Code Snippet:</h2>
+        <pre>
+          add javascript code here.
+        </pre>
+    </div>
+  </body>
+</html>
