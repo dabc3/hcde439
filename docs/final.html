@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Devon Castillo's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Final Project</h1>
+    <div class="header">
+      <img src="operation7.gif" height="400"/><br/>
+      <p>
+        Starry light is an visual sensory tool that helps children fall asleep easier.
+        It activates when a light sensor detects when the room is dark, and spins a
+        lampshade with hole cut outs to mimic stars! To the right you will see a gif
+        of my operating prototype. My circuit contains a photoresistor that senses 
+        the brightness of the room. When the lights turn off, the multicolor LED
+        begins fading in between colors and the stepper motor begins spinning. I 3D
+        printed a lampshade to go on top of the stepper motor, so when the motor spins
+        the lamspade spins, projecting moving stars across the walls of the room. When
+        the photoresistor senses that the lights turn back on, the LED turns off and
+        the stepper motor stops moving, making the lamp appear as if it turned off.
+        <br/>
+        <br/>
+        Did you use AI tools in completing this assignment?<br/>
+        I used AI to explain the timing issue that I was having between the LED fading
+        and the photoresistor sensing the brightness in the room. Other than that all
+        work was my own.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="calculations">
+          <h2>Calculations:</h2>
+          <img src="calculations7.jpg" />
+        <p>I used the equation V=IR rearranged to R=V/I to find the resistor needed
+          for the red LED. Voltage input is 5V from the source, and the voltage drop
+          is 2V for the red led, leaving us with 3V over 20mA. I got 150 ohms from my
+          calculations, but was told to round to 220 ohms in class for safety. The
+          joystick does not need a resistor.
+        </p>
+      </div>
+
+      <div class="BOM">
+          <h2>Bill Of Materials:</h2>
+          <img src="BOM7.png" />
+      </div>
+
+      <div class="schematic">
+          <h2>Schematic:</h2>
+          <img src="schematic6.jpg" />
+        <p>I created these schematics using icons learned in class. The power source
+          is 5V for  the multicolored led, the photoresistor, and the stepper motor.
+          The resistor for the LED should be 220 ohms for the red and green, and 100
+          ohms for the blue based on my calculations and rounding. The photoresistor
+          uses a 10k ohm resistor. 
+        </p>
+      </div>
+    </div>
+
+    <div class = "components">
+      <br/>
+      <img src="final prototyping.png" style="height:400px"/>
+      <p>These are the individual parts of the prototype and how they were constructed.
+        I found the arduino case on an open CAD forum and printed it using a 3D printer,
+        I made the cable cover out of cut up cardboard and tape, and I CAD modelled the
+        lampshade in fusion 360 and printed it using a 3D printer.
+      </p>
+    </div>
+
+    <div class = "assembly">
+      <br/>
+      <img src="assembly.png" style="height:400px"/>
+      <p>These images are when I began putting the components together with the constructed
+        parts. The first image shows the circuit with a multicolor LED that fades between
+        colors creating a rainbow cascading affect. The second picture shows when I added
+        the stepper motor to function with the fade sequence. The stepper motor was too short
+        to move the lamp shade over the LED and the wiring, so I ended up gluing some paper
+        straw sections to the bottom of the stepper motor to elevate it above the LED and 
+        wires. The final image is my final prototype, combining a working circuit with
+        constructed parts to make a functioning prototype.
+      </p>
+    </div>
+
+    <br/>
+    <div class="header">
+      <h2>Top and Side Views of Final Circuit:</h2>
+        <img src="topview7.jpeg" style="height:200px"/>
+        <img src="sideview7.1.jpeg" style="height:200px"/>
+        <img src="sideview7.2.jpeg" style="height:200px"/>
+    </div>
+    
+    <div class="arduinoCode">
+          <br/>
+          <h2>Arduino Code Snippet:</h2>
+        <pre>
+          add c++ code
+        </pre>
+    </div>
+
+    <div class="javascriptCode">
+          <br/>
+          <h2>Techical Write Up:</h2>
+        <pre>
+          technical write up
+        </pre>
+    </div>
+  </body>
+</html>
