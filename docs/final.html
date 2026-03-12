@@ -9,7 +9,7 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Final Project</h1>
+    <h1>Final Project: Starry Light!</h1>
     <div class="header">
       <img src="operation7.gif" height="400"/><br/>
       <p>
@@ -29,6 +29,10 @@
         I used AI to explain the timing issue that I was having between the LED fading
         and the photoresistor sensing the brightness in the room. Other than that all
         work was my own.
+        <br/>
+        <br/>
+        Link to Demo Video:
+        https://drive.google.com/file/d/1oi4V3Xv1FtKBDC1IhASqs9epMl89ly9_/view?usp=drive_link
       </p>
     </div>
 
@@ -177,7 +181,32 @@
           <br/>
           <h2>Techical Write Up:</h2>
         <pre>
-          technical write up
+          The concept for this project came from the wishing machine in the Greatest Showman because I recently
+          watched this movie when we started brainstorming ideas for final projects. I wanted to take the idea of
+          a spinning lamp that projected stars on the walls, and make it fully automated with more color options.
+          A multicolor LED and stepper motor seemed like an obvious choice of components for this project, and a 
+          photoresistor made the turning on and off of the machine automatic. I began by creating a list of materials
+          I thought I would need to make my final project. I then built a simple fading circuit that faded in between
+          colors, creating a rainbow cascade affect on the led. I then made the LED turn on and off with a photoreistor.
+          After I made my fading LED, I added a stepper motor to the circuit that spun slowly when the photoresistor
+          read light and turned off when the photoreistor read dark. once I built my working circuit, I prototyped
+          an arduino case and lampshade with PLA and a 3D printer. I also prototyped a cords cover out of cardboard
+          to hide the cords coming out of the stepper motor cords and the stepper motor driver. After putting the
+          prototyped pieces on my circuit, I tested the functionality inside a box that set the scale of the lamp
+          and filmed my demo.
+          
+          The hardest part of the project was the timing blocks of combining a fade sequence and a photoresistor.
+          When I had my fade function and analogRead(photoresistor) in the loop function, there was a delay in 
+          response from my device when I turned on the lights because the fade function would run for a few seconds.
+          Then once the fade sequence ran the photosensor would read again. After researching why this issue was 
+          occurring, I found out that I had to create a separate variable to read the time, which would allow the
+          photoresistor to run every millisecond and run the fade sequence separately according to the new time 
+          variable.
+
+          If I could do this project over again, I think I would save more time for iteration, especially in the
+          CAD modeling and prototyping section. Also, since my device is not to scale, I would most likely need a
+          larger multicolored LED, longer base to hold my stepper motor, and more developed CAD models to hide the
+          circuitry.
         </pre>
     </div>
   </body>
