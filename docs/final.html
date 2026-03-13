@@ -41,10 +41,15 @@
           <h2>Calculations:</h2>
           <img src="calculations7.jpg" />
         <p>I used the equation V=IR rearranged to R=V/I to find the resistor needed
-          for the red LED. Voltage input is 5V from the source, and the voltage drop
-          is 2V for the red led, leaving us with 3V over 20mA. I got 150 ohms from my
-          calculations, but was told to round to 220 ohms in class for safety. The
-          joystick does not need a resistor.
+          for the red, green, and blue LEDs. Voltage input is 5V from the source,
+          and the voltage drop is 2V for the red and green LEDs, leaving us with 3V
+          over 20mA. I got 150 ohms from my calculations, but was told to round to
+          220 ohms in class for safety. The voltage drop is 3.2V for the blue LED,
+          leaving us with 1.8V over 20mA. I got 90 ohms from my calculations, but was
+          told to round to 100 ohms in class for safety. For the photoresistor, I took
+          measurements of the resistance in both the light (Rlow) and the dark (Rhigh)
+          using my multimeter, and used the equation R2 = sqrt(Rlow x Rhigh). I then
+          rounded to the nearest resistor which would be 10K ohms.
         </p>
       </div>
 
@@ -55,12 +60,13 @@
 
       <div class="schematic">
           <h2>Schematic:</h2>
-          <img src="schematic6.jpg" />
+          <img src="schematic7.jpg" />
         <p>I created these schematics using icons learned in class. The power source
-          is 5V for  the multicolored led, the photoresistor, and the stepper motor.
+          is 5V for the multicolored LED, the photoresistor, and the stepper motor.
           The resistor for the LED should be 220 ohms for the red and green, and 100
           ohms for the blue based on my calculations and rounding. The photoresistor
-          uses a 10k ohm resistor. 
+          uses a 10k ohm resistor. The stepper motor also requires a driver, which
+          can be shown in the schematic.
         </p>
       </div>
     </div>
@@ -78,14 +84,15 @@
     <div class = "assembly">
       <br/>
       <img src="assembly.png" style="height:400px"/>
-      <p>These images are when I began putting the components together with the constructed
+      <p>These images are when I began putting the circuit together with the constructed
         parts. The first image shows the circuit with a multicolor LED that fades between
-        colors creating a rainbow cascading affect. The second picture shows when I added
-        the stepper motor to function with the fade sequence. The stepper motor was too short
-        to move the lamp shade over the LED and the wiring, so I ended up gluing some paper
-        straw sections to the bottom of the stepper motor to elevate it above the LED and 
-        wires. The final image is my final prototype, combining a working circuit with
-        constructed parts to make a functioning prototype.
+        colors creating a rainbow cascading affect working with the photoreistor. The
+        second picture shows when I added the stepper motor to function with the fade
+        sequence and the photoresistor. The stepper motor was too short to move the lamp
+        shade over the LED and the wiring, so I ended up gluing some paper straw sections
+        to the bottom of the stepper motor to elevate it above the LED and wires. The final
+        image is my final prototype, combining a working circuit with constructed parts to
+        make a functioning prototype.
       </p>
     </div>
 
@@ -116,7 +123,7 @@
 
           //variables for non-blocking timing
           unsigned long lastUpdate = 0; //variable for storing time (32-bit positive numbers)
-          int fadeValue = 0; //variable for how much to fade led by
+          int fadeValue = 0; //variable for how much to fade LED by
           int phase = 0; //0: G->R, 1: R->B, 2: B->G
 
           //setup
@@ -180,34 +187,37 @@
     <div class="javascriptCode">
           <br/>
           <h2>Techical Write Up:</h2>
-        <pre>
+        <p>
           The concept for this project came from the wishing machine in the Greatest Showman because I recently
           watched this movie when we started brainstorming ideas for final projects. I wanted to take the idea of
           a spinning lamp that projected stars on the walls, and make it fully automated with more color options.
           A multicolor LED and stepper motor seemed like an obvious choice of components for this project, and a 
           photoresistor made the turning on and off of the machine automatic. I began by creating a list of materials
           I thought I would need to make my final project. I then built a simple fading circuit that faded in between
-          colors, creating a rainbow cascade affect on the led. I then made the LED turn on and off with a photoreistor.
+          colors, creating a rainbow cascade affect on the LED. I then made the LED turn on and off with a photoreistor.
           After I made my fading LED, I added a stepper motor to the circuit that spun slowly when the photoresistor
           read light and turned off when the photoreistor read dark. once I built my working circuit, I prototyped
           an arduino case and lampshade with PLA and a 3D printer. I also prototyped a cords cover out of cardboard
           to hide the cords coming out of the stepper motor cords and the stepper motor driver. After putting the
           prototyped pieces on my circuit, I tested the functionality inside a box that set the scale of the lamp
           and filmed my demo.
-          
+          <br/>
+          <br/>
           The hardest part of the project was the timing blocks of combining a fade sequence and a photoresistor.
           When I had my fade function and analogRead(photoresistor) in the loop function, there was a delay in 
-          response from my device when I turned on the lights because the fade function would run for a few seconds.
+          response from my device when I turned on the lights because the fade function would run for a few milliseconds.
           Then once the fade sequence ran the photosensor would read again. After researching why this issue was 
           occurring, I found out that I had to create a separate variable to read the time, which would allow the
           photoresistor to run every millisecond and run the fade sequence separately according to the new time 
           variable.
-
+          <br/>
+          <br/>
           If I could do this project over again, I think I would save more time for iteration, especially in the
           CAD modeling and prototyping section. Also, since my device is not to scale, I would most likely need a
           larger multicolored LED, longer base to hold my stepper motor, and more developed CAD models to hide the
-          circuitry.
-        </pre>
+          circuitry. I think it could also be interesting to incorporate a dial or button that could change the
+          brightness of the LEDs, or change between color outputs instead of just fading rainbow.
+        </p>
     </div>
   </body>
 </html>
